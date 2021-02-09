@@ -100,7 +100,8 @@ app.post('/auth/signup', async (req, res) => {
   }
   let salt = bcrypt.genSaltSync(10);
   let hash = bcrypt.hashSync(password, salt);
-  let createdUser = await db.create_customer([email, hash])
+  //db.create_user not db.create_customer
+  let createdUser = await db.create_user([email, hash])
   req.session.user = { id: createdUser[0].id, email: createdUser[0].email }
   res.status(200).send(req.session.user)
 });
